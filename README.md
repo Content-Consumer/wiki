@@ -15,3 +15,4 @@ zig build run
 
 # Resume
 - Parse blockquote
+- In main.zig move to more modern way of writing dvui app, as defined in https://github.com/david-vanderson/dvui/blob/main/examples/sdl-standalone.zig#L24

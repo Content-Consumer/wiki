@@ -86,6 +86,7 @@ pub fn build(b: *std.Build) void {
     // Configure DVUI as a dependency
     const dvui_dep = b.dependency("dvui", .{ .target = target, .optimize = optimize, .backend = .sdl3 });
     exe.root_module.addImport("dvui", dvui_dep.module("dvui_sdl3"));
+    exe.root_module.addImport("sdl-backend", dvui_dep.module("sdl3"));
 
     // This declares intent for the executable to be installed into the
     // install prefix when running `zig build` (i.e. when executing the default

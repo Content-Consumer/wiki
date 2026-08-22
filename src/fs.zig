@@ -2,7 +2,7 @@ const std = @import("std");
 const stdout = std.Io.File.stdout();
 const stdin = std.Io.File.stdin();
 
-fn listdir(path: []u8, io: std.Io, allocator: std.mem.Allocator) !void {
+pub fn listdir(path: []u8, io: std.Io, allocator: std.mem.Allocator) !void {
     // Read a directory
     const dir = try std.Io.Dir.openDir(std.Io.Dir.cwd(), io, path, .{ .iterate = true });
     defer dir.close(io);
