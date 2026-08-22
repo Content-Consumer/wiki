@@ -3,7 +3,9 @@ Core engine for content consumer's wiki
 
 # Running
 ```zig
-zig run lexer.zig
+zig build cli
+or 
+zig build run
 ```
 
 # Roadmap
