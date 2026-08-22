@@ -15,7 +15,14 @@ pub fn main(init: std.process.Init) !void {
     SDLBackend.enableSDLLogging();
     std.log.info("SDL Version: {f}", .{SDLBackend.getSDLVersion()});
 
-    var backend = try SDLBackend.initWindow(.{ .io = init.io, .environ_map = init.environ_map, .size = .{ .w = 800.0, .h = 400.0 }, .min_size = .{ .w = 400.0, .h = 400.0 }, .vsync = vsync, .title = "Wiki" });
+    var backend = try SDLBackend.initWindow(.{
+        .io = init.io,
+        .environ_map = init.environ_map,
+        .size = .{ .w = 800.0, .h = 400.0 },
+        .min_size = .{ .w = 400.0, .h = 400.0 },
+        .vsync = vsync,
+        .title = "Wiki",
+    });
     g_backend = backend;
     defer backend.deinit();
 
@@ -34,15 +41,28 @@ pub fn main(init: std.process.Init) !void {
         try backend.addAllEvents(&win);
 
         {
-            var vbox = dvui.box(@src(), .{ .dir = .vertical }, .{ .expand = .both });
+            var vbox = dvui.box(
+                @src(),
+                .{ .dir = .vertical },
+                .{ .expand = .both },
+            );
             defer vbox.deinit();
 
             dvui.label(@src(), "Hello World", .{}, .{});
 
-            var textbox = dvui.textEntry(@src(), .{ .text = .{ .buffer = &text_label_buf } }, .{});
+            var textbox = dvui.textEntry(
+                @src(),
+                .{ .text = .{ .buffer = &text_label_buf } },
+                .{},
+            );
             textbox.deinit();
 
-            if (dvui.button(@src(), "List Files", .{}, .{})) {
+            if (dvui.button(
+                @src(),
+                "List Files",
+                .{},
+                .{},
+            )) {
                 // std.log.info("clicked");
                 try std.Io.File.stdout().writeStreamingAll(io, "clicked : ");
                 // try std.Io.File.stdout().writeStreamingAll(io, &text_label_buf);
@@ -52,7 +72,6 @@ pub fn main(init: std.process.Init) !void {
         }
 
         const end_micros = try win.end(.{});
-
         const wait_event_micros = win.waitTime(end_micros);
         interrupted = try backend.waitEventTimeout(wait_event_micros);
     }
